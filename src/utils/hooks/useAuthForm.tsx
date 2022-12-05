@@ -3,27 +3,28 @@ import { Auth, Result, Validator } from "@/types/auth";
 import { useEffect } from "react";
 import { useState } from "react";
 import useInput from "./useInput";
+import { AUTH } from "@/constants/auth";
 
 export const validator: Validator = {
   auth: ({ email, password, pwCheck = "" }: Auth) => {
     const result: Result<Auth> = { isError: false, errors: {} };
 
     if (typeof email !== "string" || (!email.includes("@") && email !== "")) {
-      result.errors.email = "@를 포함한 올바른 이메일 양식을 입력해 주세요";
+      result.errors.email = AUTH.EMAIL;
     }
 
     if (
       typeof password !== "string" ||
       (password.length < 8 && password !== "")
     ) {
-      result.errors.password = "8자리 이상 입력해 주세요";
+      result.errors.password = AUTH.PW;
     }
 
     if (
       typeof pwCheck !== "string" ||
       (password !== pwCheck && pwCheck !== "")
     ) {
-      result.errors.pwCheck = "비밀번호가 일치하지 않습니다";
+      result.errors.pwCheck = AUTH.PW_CHECK;
     }
 
     if (Object.keys(result.errors).length) {
