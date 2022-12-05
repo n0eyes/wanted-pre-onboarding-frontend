@@ -3,14 +3,14 @@ import Input from "@/components/common/Input";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { Styled } from "./style";
 import { client } from "@/api";
-import useForm, { validator } from "@/utils/hooks/useAuthForm";
+import useAuthForm, { validator } from "@/utils/hooks/useAuthForm";
 
 function Join() {
   const {
     value: { email, password, pwCheck },
     handlers: { emailHandler, pwHandler, pwCheckHandler },
     validate: { isError, errors },
-  } = useForm();
+  } = useAuthForm();
 
   return (
     <Styled.Root>
@@ -62,7 +62,7 @@ export async function joinAction({ request }: ActionFunctionArgs) {
   const password = formData.get("password");
   const pwCheck = formData.get("pw-check");
 
-  const { isError, errors } = validator.join({ email, password, pwCheck });
+  const { isError, errors } = validator.auth({ email, password, pwCheck });
 
   if (isError) return errors;
 

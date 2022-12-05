@@ -9,7 +9,7 @@ export interface Auth {
 export type Result<T> = { isError: boolean; errors: ModifyToString<T> };
 
 export interface Validator {
-  join: (data: Auth) => Result<Auth>;
+  auth: (data: Auth) => Result<Auth>;
 }
 
 export interface AuthRequest {

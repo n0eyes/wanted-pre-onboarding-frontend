@@ -9,4 +9,5 @@ export const client = axios.create({
 
 export const PATH = {
   JOIN: "/auth/signup",
+  LOGIN: "/auth/signin",
 };

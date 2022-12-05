@@ -1,11 +1,11 @@
-import { Auth, Result, Validator } from "@/types/auth";
 import React from "react";
+import { Auth, Result, Validator } from "@/types/auth";
 import { useEffect } from "react";
 import { useState } from "react";
 import useInput from "./useInput";
 
 export const validator: Validator = {
-  join: ({ email, password, pwCheck }: Auth) => {
+  auth: ({ email, password, pwCheck = "" }: Auth) => {
     const result: Result<Auth> = { isError: false, errors: {} };
 
     if (typeof email !== "string" || (!email.includes("@") && email !== "")) {
@@ -38,13 +38,14 @@ function useAuthForm() {
   const [email, emailHandler] = useInput();
   const [password, pwHandler] = useInput();
   const [pwCheck, pwCheckHandler] = useInput();
+
   const [validate, setValidate] = useState<Result<Auth>>({
     isError: false,
     errors: {},
   });
 
   useEffect(() => {
-    const validate = validator.join({ email, password, pwCheck });
+    const validate = validator.auth({ email, password, pwCheck });
 
     setValidate(validate);
   }, [email, password, pwCheck]);

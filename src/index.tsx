@@ -10,14 +10,14 @@ import {
 import { GlobalStyle } from "./style/global";
 import Join, { joinAction } from "./pages/join";
 import ToDo from "./pages/todo";
-import Login from "./pages/login";
+import Login, { loginAction } from "./pages/login";
 import Layout from "./components/Layout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route element={<App />}>
-        <Route index element={<Login />} />
+        <Route index element={<Login />} action={loginAction} />
         <Route path="join" element={<Join />} action={joinAction} />
         <Route path="todo" element={<ToDo />} />
       </Route>
