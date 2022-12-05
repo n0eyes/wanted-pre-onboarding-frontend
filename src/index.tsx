@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import { GlobalStyle } from "./style/global";
-import Join from "./pages/join";
+import Join, { joinAction } from "./pages/join";
 import ToDo from "./pages/todo";
 import Login from "./pages/login";
 import Layout from "./components/Layout";
@@ -18,7 +18,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<Layout />}>
       <Route element={<App />}>
         <Route index element={<Login />} />
-        <Route path="join" element={<Join />} />
+        <Route path="join" element={<Join />} action={joinAction} />
         <Route path="todo" element={<ToDo />} />
       </Route>
     </Route>
