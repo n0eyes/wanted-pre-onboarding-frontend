@@ -11,6 +11,10 @@ const GlobalStyle = createGlobalStyle`
   *{
     box-sizing: border-box;
   }
+
+  input:-webkit-autofill {
+   -webkit-box-shadow: 0 0 0 1000px #ffffff inset;
+  }
 `;
 
 export { GlobalStyle };

@@ -33,6 +33,15 @@ export const Styled = {
         return css`
           color: dodgerblue;
           background-color: white;
+
+          &:hover {
+            color: white;
+            background-color: ${lighten(0.1, "dodgerblue")};
+          }
+
+          &:active {
+            background-color: ${darken(0.1, "dodgerblue")};
+          }
         `;
     }}
   `,
