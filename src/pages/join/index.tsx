@@ -3,7 +3,9 @@ import Input from "@/components/common/Input";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { Styled } from "./style";
 import { client } from "@/api";
-import useAuthForm, { validator } from "@/utils/hooks/useAuthForm";
+import useAuthForm from "@/utils/hooks/useAuthForm";
+import { join, to } from "@/api/auth";
+import { AuthResponse } from "@/types/auth";
 
 function Join() {
   const {
@@ -58,18 +60,10 @@ export default Join;
 export async function joinAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const pwCheck = formData.get("pw-check");
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
 
-  const { isError, errors } = validator.auth({ email, password, pwCheck });
+  const [error, data] = await to<AuthResponse>(join({ email, password }));
 
-  if (isError) return errors;
-
-  await client.post("/auth/signup", {
-    email,
-    password,
-  });
-
-  return redirect("/login");
+  return data ? redirect("/") : null;
 }

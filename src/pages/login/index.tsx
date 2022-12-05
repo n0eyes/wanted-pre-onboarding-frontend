@@ -58,12 +58,7 @@ export async function loginAction({ request }: ActionFunctionArgs) {
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
 
-  const [error, data] = await to<AuthResponse>(
-    login({
-      email,
-      password,
-    })
-  );
+  const [error, data] = await to<AuthResponse>(login({ email, password }));
 
   return data ? redirect("/todo") : null;
 }
