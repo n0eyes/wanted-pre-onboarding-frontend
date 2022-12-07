@@ -1,9 +1,12 @@
 import Button from "@/components/common/Button";
 import Form from "@/components/common/Form";
+import { flexCenter } from "@/style/mixin";
 import styled from "styled-components";
 
 export const Styled = {
   Root: styled.div`
+    ${flexCenter("column")}
+
     padding: 1rem;
   `,
 
