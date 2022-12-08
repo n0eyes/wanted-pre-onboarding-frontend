@@ -12,4 +12,5 @@ export const PATH = {
   JOIN: "/auth/signup",
   LOGIN: "/auth/signin",
   GET_TODO: "/todos",
+  CREATE_TODO: "/todos",
 };

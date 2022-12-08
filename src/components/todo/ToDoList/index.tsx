@@ -1,27 +1,20 @@
 import React from "react";
+import { GetToDoResponse } from "@/types/todo";
 import ToDo from "../ToDo";
-import ToDoEditing from "../ToDoEditing";
 import { Styled } from "./style";
 
-function ToDoList() {
+interface ToDoListProps {
+  toDoList: GetToDoResponse;
+}
+
+function ToDoList(props: ToDoListProps) {
+  const { toDoList } = props;
+
   return (
     <Styled.Root>
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDo />
-      <ToDoEditing />
+      {toDoList.map((data) => (
+        <ToDo key={data.id} data={data} />
+      ))}
     </Styled.Root>
   );
 }

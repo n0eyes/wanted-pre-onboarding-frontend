@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { GlobalStyle } from "./style/global";
 import Join, { joinAction } from "./pages/join";
-import ToDo, { ToDoLoader } from "./pages/todo";
+import ToDo, { ToDoAction, ToDoLoader } from "./pages/todo";
 import Login, { loginAction } from "./pages/login";
 import Layout from "./components/Layout";
 
@@ -19,7 +19,12 @@ const router = createBrowserRouter(
       <Route element={<App />}>
         <Route index element={<Login />} action={loginAction} />
         <Route path="join" element={<Join />} action={joinAction} />
-        <Route path="todo" element={<ToDo />} loader={ToDoLoader} />
+        <Route
+          path="todo"
+          element={<ToDo />}
+          action={ToDoAction}
+          loader={ToDoLoader}
+        />
       </Route>
     </Route>
   )

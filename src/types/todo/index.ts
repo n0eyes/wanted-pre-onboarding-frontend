@@ -5,4 +5,9 @@ interface ToDo {
   userId: number;
 }
 
-export interface getToDoResponse extends Array<ToDo> {}
+export interface GetToDoResponse extends Array<ToDo> {}
+
+export interface CreateToDoRequest {
+  todo: string;
+}
+export interface CreateToDoResponse extends ToDo {}

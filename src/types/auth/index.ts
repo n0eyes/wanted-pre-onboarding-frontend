@@ -1,4 +1,4 @@
-type ModifyToString<T> = Omit<T, keyof T> & { [K in keyof T]: string };
+import { ModifyToString } from "../common";
 
 export interface Auth {
   email?: FormDataEntryValue | null;

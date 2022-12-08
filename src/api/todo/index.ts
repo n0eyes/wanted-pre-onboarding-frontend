@@ -1,8 +1,18 @@
+import { CreateToDoRequest, CreateToDoResponse } from "@/types/todo/index";
 import { client, PATH } from "@/api";
-import { getToDoResponse } from "@/types/todo";
+import { GetToDoResponse } from "@/types/todo";
 
 export async function getToDo() {
-  const { data } = await client<getToDoResponse>(PATH.GET_TODO);
+  const { data } = await client<GetToDoResponse>(PATH.GET_TODO);
+
+  return data;
+}
+
+export async function createToDo(payload: CreateToDoRequest) {
+  const { data } = await client.post<CreateToDoResponse>(
+    PATH.CREATE_TODO,
+    payload
+  );
 
   return data;
 }
