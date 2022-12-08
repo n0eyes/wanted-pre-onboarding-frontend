@@ -31,6 +31,7 @@ export async function login({ email, password }: AuthRequest) {
   });
 
   localStorage.setItem("user", data.access_token);
+  client.defaults.headers["Authorization"] = `Bearer ${data.access_token}`;
 
   return data;
 }
