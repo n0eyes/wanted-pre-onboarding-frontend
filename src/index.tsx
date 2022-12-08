@@ -12,16 +12,37 @@ import Join, { joinAction } from "./pages/join";
 import ToDo, { ToDoAction, ToDoLoader } from "./pages/todo";
 import Login, { loginAction } from "./pages/login";
 import Layout from "./components/Layout";
+import Auth from "./pages/auth";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
       <Route element={<App />}>
-        <Route index element={<Login />} action={loginAction} />
-        <Route path="join" element={<Join />} action={joinAction} />
+        <Route
+          index
+          element={
+            <Auth to="/todo" login={true}>
+              <Login />
+            </Auth>
+          }
+          action={loginAction}
+        />
+        <Route
+          path="join"
+          element={
+            <Auth to="/todo" login={true}>
+              <Join />
+            </Auth>
+          }
+          action={joinAction}
+        />
         <Route
           path="todo"
-          element={<ToDo />}
+          element={
+            <Auth to="/" login={false}>
+              <ToDo />
+            </Auth>
+          }
           action={ToDoAction}
           loader={ToDoLoader}
         />
