@@ -9,10 +9,12 @@ import {
 } from "react-router-dom";
 import { GlobalStyle } from "./style/global";
 import Join, { joinAction } from "./pages/join";
-import ToDo, { toDoAction, toDoLoader } from "./pages/todo";
+import ToDo, { toDoLoader } from "./pages/todo";
 import Login, { loginAction } from "./pages/login";
 import Layout from "./components/Layout";
 import Auth from "./pages/auth";
+import { withAction } from "./utils/actions/withAction";
+import { toDoAction } from "./utils/actions";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -43,7 +45,7 @@ const router = createBrowserRouter(
               <ToDo />
             </Auth>
           }
-          action={toDoAction}
+          action={withAction(toDoAction)}
           loader={toDoLoader}
         />
       </Route>

@@ -1,48 +1,45 @@
-import React, { useContext } from "react";
+import React from "react";
 import { UnPacked } from "@/types/common";
 import { GetToDoResponse } from "@/types/todo";
 import { Styled } from "./style";
 import { useState } from "react";
-import { SubmitFunction, useSubmit } from "react-router-dom";
-import { createContext } from "react";
-import useInput from "@/utils/hooks/useInput";
+
+import { dispatch } from "@/utils/actions/withAction";
 
 interface ToDoProps {
   data: UnPacked<GetToDoResponse>;
 }
 
-interface Context {
-  todo?: ToDoProps["data"]["todo"];
-  editHandler?: VoidFunction;
-  submit?: SubmitFunction;
+interface ChildrenProps {
+  data: ToDoProps["data"];
+  onEdit: VoidFunction;
 }
 
-const context = createContext<Context>({});
 function ToDo(props: ToDoProps) {
-  const {
-    data: { todo },
-  } = props;
+  const { data } = props;
   const [editing, setEditing] = useState(false);
   const editHandler = () => setEditing((prev) => !prev);
-  const submit = useSubmit();
 
-  return (
-    <context.Provider value={{ todo, editHandler, submit }}>
-      {editing ? <ToDo.Editing /> : <ToDo.View />}
-    </context.Provider>
+  return editing ? (
+    <ToDo.Editing data={data} onEdit={editHandler} />
+  ) : (
+    <ToDo.View data={data} onEdit={editHandler} />
   );
 }
 
 export default ToDo;
 
-ToDo.View = function View() {
-  const { todo, editHandler } = useContext(context);
+ToDo.View = function View(props: ChildrenProps) {
+  const {
+    data: { todo },
+    onEdit,
+  } = props;
 
   return (
     <Styled.Root>
       <Styled.Content>{todo}</Styled.Content>
       <Styled.ButtonWrapper>
-        <Styled.Button variant="basic" onClick={editHandler}>
+        <Styled.Button variant="basic" onClick={onEdit}>
           수정
         </Styled.Button>
         <Styled.Button variant="basic">삭제</Styled.Button>
@@ -51,17 +48,27 @@ ToDo.View = function View() {
   );
 };
 
-ToDo.Editing = function Editing() {
-  const { todo, editHandler } = useContext(context);
-  const [text, setText] = useInput(todo);
+ToDo.Editing = function Editing(props: ChildrenProps) {
+  const {
+    data: { id, todo },
+    onEdit,
+  } = props;
+
+  const onSubmit = () => {
+    dispatch(
+      {
+        type: "update",
+        payload: { id },
+      },
+      onEdit
+    );
+  };
 
   return (
     <Styled.Root>
-      <Styled.Form method="put">
-        <Styled.Input value={text} onChange={setText} />
-        <Styled.Button variant="basic" onClick={editHandler}>
-          완료
-        </Styled.Button>
+      <Styled.Form method="put" onSubmit={onSubmit}>
+        <Styled.Input name="todo" defaultValue={todo} autoFocus />
+        <Styled.Button variant="basic">완료</Styled.Button>
       </Styled.Form>
     </Styled.Root>
   );

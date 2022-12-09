@@ -13,6 +13,7 @@ export interface CreateToDoRequest {
 export interface CreateToDoResponse extends ToDo {}
 
 export interface UpdateToDoRequest {
+  id: number;
   todo: string;
   isCompleted: boolean;
 }

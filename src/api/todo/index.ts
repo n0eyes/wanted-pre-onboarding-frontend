@@ -21,10 +21,10 @@ export async function createToDo(payload: CreateToDoRequest) {
   return data;
 }
 
-export async function updateToDo(payload: UpdateToDoRequest) {
+export async function updateToDo({ id, todo, isCompleted }: UpdateToDoRequest) {
   const { data } = await client.put<UpdateToDoResponse>(
-    `${PATH.UPDATE_TODO}/3`,
-    payload
+    `${PATH.UPDATE_TODO}/${id}`,
+    { todo, isCompleted }
   );
 
   return data;

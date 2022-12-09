@@ -1,14 +1,15 @@
 import React from "react";
 import Input from "@/components/common/Input";
 import { Styled } from "./style";
-import useInput from "@/utils/hooks/useInput";
+import { dispatch } from "@/utils/actions/withAction";
 
 function InputForm() {
-  const [text, setText] = useInput();
+  const onSubmit = () => dispatch({ type: "create" });
+
   return (
     <Styled.Root>
-      <Styled.Form method="post">
-        <Input name="todo" value={text} onChange={setText} />
+      <Styled.Form method="post" onSubmit={onSubmit}>
+        <Input name="todo" />
         <Styled.Button variant="basic">추가</Styled.Button>
       </Styled.Form>
     </Styled.Root>
