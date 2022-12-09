@@ -11,3 +11,10 @@ export interface CreateToDoRequest {
   todo: string;
 }
 export interface CreateToDoResponse extends ToDo {}
+
+export interface UpdateToDoRequest {
+  todo: string;
+  isCompleted: boolean;
+}
+
+export interface UpdateToDoResponse extends ToDo {}

@@ -2,7 +2,6 @@ import React from "react";
 import Input from "@/components/common/Input";
 import { ActionFunctionArgs, redirect } from "react-router-dom";
 import { Styled } from "./style";
-import { client } from "@/api";
 import useAuthForm from "@/utils/hooks/useAuthForm";
 import { join, to } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";

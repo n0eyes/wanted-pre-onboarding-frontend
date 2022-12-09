@@ -3,7 +3,7 @@ import InputForm from "@/components/todo/InputForm";
 import ToDoList from "@/components/todo/ToDoList";
 import { Styled } from "./style";
 import { to } from "@/api/auth";
-import { createToDo, getToDo } from "@/api/todo";
+import { createToDo, getToDo, updateToDo } from "@/api/todo";
 import { GetToDoResponse } from "@/types/todo";
 import { ActionFunctionArgs, useLoaderData } from "react-router-dom";
 
@@ -23,19 +23,23 @@ function ToDo() {
 
 export default ToDo;
 
-export async function ToDoLoader() {
+export async function toDoLoader() {
   const [error, data] = await to<GetToDoResponse>(getToDo());
 
   return data ?? error;
 }
 
-export async function ToDoAction({ request }: ActionFunctionArgs) {
+export async function toDoAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
   const todo = formData.get("todo") as string;
 
   if (request.method === "POST") {
     await to(createToDo({ todo }));
+  }
+
+  if (request.method === "PUT") {
+    await to(updateToDo({ todo: "", isCompleted: true }));
   }
 
   return null;

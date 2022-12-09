@@ -13,4 +13,5 @@ export const PATH = {
   LOGIN: "/auth/signin",
   GET_TODO: "/todos",
   CREATE_TODO: "/todos",
+  UPDATE_TODO: "/todos",
 };
