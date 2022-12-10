@@ -38,7 +38,10 @@ ToDo.View = function View(props: ChildrenProps) {
   return (
     <Styled.Root>
       <Styled.Form method="delete">
-        <Styled.Content>{todo}</Styled.Content>
+        <Styled.Label>
+          <Styled.CheckBox type="checkbox" />
+          <Styled.Content>{todo}</Styled.Content>
+        </Styled.Label>
         <Styled.ButtonWrapper>
           <Styled.Button variant="basic" onClick={onEdit}>
             수정
@@ -58,7 +61,7 @@ ToDo.Editing = function Editing(props: ChildrenProps) {
     onEdit,
   } = props;
 
-  const onSubmit = () => {
+  const submitHandler = () => {
     dispatch(
       {
         type: "update",
@@ -70,7 +73,7 @@ ToDo.Editing = function Editing(props: ChildrenProps) {
 
   return (
     <Styled.Root>
-      <Styled.Form method="put" onSubmit={onSubmit}>
+      <Styled.Form method="put" onSubmit={submitHandler}>
         <Styled.Input name="todo" defaultValue={todo} autoFocus />
         <Styled.Button variant="basic">완료</Styled.Button>
       </Styled.Form>
