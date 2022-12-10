@@ -4,7 +4,7 @@ type Extract<T> = T extends (args: infer U, callback?: infer R) => void
   ? U & { callback: R }
   : T;
 
-type TaskType = "update" | "create";
+type TaskType = "update" | "create" | "delete";
 
 interface Dispatch {
   (

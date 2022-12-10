@@ -1,4 +1,6 @@
 import {
+  DeleteToDoRequest,
+  DeleteToDoResponse,
   UpdateToDoRequest,
   UpdateToDoResponse,
 } from "./../../types/todo/index";
@@ -25,6 +27,14 @@ export async function updateToDo({ id, todo, isCompleted }: UpdateToDoRequest) {
   const { data } = await client.put<UpdateToDoResponse>(
     `${PATH.UPDATE_TODO}/${id}`,
     { todo, isCompleted }
+  );
+
+  return data;
+}
+
+export async function deleteToDo({ id }: DeleteToDoRequest) {
+  const { data } = await client.delete<DeleteToDoResponse>(
+    `${PATH.DELETE_TODO}/${id}`
   );
 
   return data;

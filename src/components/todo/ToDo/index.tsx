@@ -3,7 +3,6 @@ import { UnPacked } from "@/types/common";
 import { GetToDoResponse } from "@/types/todo";
 import { Styled } from "./style";
 import { useState } from "react";
-
 import { dispatch } from "@/utils/actions/withAction";
 
 interface ToDoProps {
@@ -31,19 +30,24 @@ export default ToDo;
 
 ToDo.View = function View(props: ChildrenProps) {
   const {
-    data: { todo },
+    data: { id, todo },
     onEdit,
   } = props;
+  const deleteHandler = () => dispatch({ type: "delete", payload: { id } });
 
   return (
     <Styled.Root>
-      <Styled.Content>{todo}</Styled.Content>
-      <Styled.ButtonWrapper>
-        <Styled.Button variant="basic" onClick={onEdit}>
-          수정
-        </Styled.Button>
-        <Styled.Button variant="basic">삭제</Styled.Button>
-      </Styled.ButtonWrapper>
+      <Styled.Form method="delete">
+        <Styled.Content>{todo}</Styled.Content>
+        <Styled.ButtonWrapper>
+          <Styled.Button variant="basic" onClick={onEdit}>
+            수정
+          </Styled.Button>
+          <Styled.Button variant="basic" onClick={deleteHandler}>
+            삭제
+          </Styled.Button>
+        </Styled.ButtonWrapper>
+      </Styled.Form>
     </Styled.Root>
   );
 };

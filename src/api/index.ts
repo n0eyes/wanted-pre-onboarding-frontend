@@ -14,4 +14,5 @@ export const PATH = {
   GET_TODO: "/todos",
   CREATE_TODO: "/todos",
   UPDATE_TODO: "/todos",
+  DELETE_TODO: "/todos",
 };

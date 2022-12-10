@@ -1,4 +1,4 @@
-import { updateToDo } from "@/api/todo";
+import { deleteToDo, updateToDo } from "@/api/todo";
 import { to } from "@/api/auth";
 import { createToDo } from "@/api/todo";
 import { ActionFunctionArgs } from "react-router-dom";
@@ -16,6 +16,10 @@ export async function toDoAction({ request }: ActionFunctionArgs) {
       }
       case "update": {
         return to(updateToDo({ id: payload?.id, todo, isCompleted: true }));
+      }
+
+      case "delete": {
+        return to(deleteToDo({ id: payload?.id }));
       }
 
       default:

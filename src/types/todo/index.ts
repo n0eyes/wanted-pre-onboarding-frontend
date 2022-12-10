@@ -19,3 +19,9 @@ export interface UpdateToDoRequest {
 }
 
 export interface UpdateToDoResponse extends ToDo {}
+
+export interface DeleteToDoRequest {
+  id: number;
+}
+
+export interface DeleteToDoResponse {}
