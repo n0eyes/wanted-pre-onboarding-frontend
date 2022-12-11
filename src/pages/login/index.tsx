@@ -36,7 +36,7 @@ function Login() {
         <Styled.Error>{errors.password}</Styled.Error>
 
         <Styled.ButtonWrapper>
-          <Styled.Button type="submit" variant="basic" disabled={isError}>
+          <Styled.Button type="submit" disabled={isError}>
             Login
           </Styled.Button>
           <Link to={"/join"}>

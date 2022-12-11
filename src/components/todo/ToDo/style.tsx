@@ -13,6 +13,8 @@ export const Styled = {
     flex-grow: 1;
 
     font-size: 1.5rem;
+
+    padding: 0.5rem;
   `,
 
   ButtonWrapper: styled.div`
@@ -43,6 +45,8 @@ export const Styled = {
 
   CheckBox: styled(Input)`
     width: 3rem;
+
+    flex-shrink: 0;
 
     margin-right: 2rem;
   `,

@@ -8,17 +8,33 @@ export async function toDoAction({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
   const todo = formData.get("todo") as string;
+  const isCompleted = Boolean(formData.get("checkbox") as string);
 
   return consume(async ({ type, payload }) => {
     switch (type) {
-      case "create": {
+      case "CREATE_TODO": {
         return to(createToDo({ todo }));
       }
-      case "update": {
-        return to(updateToDo({ id: payload?.id, todo, isCompleted: true }));
+      case "EDIT_TODO": {
+        return to(
+          updateToDo({
+            id: payload?.id,
+            todo,
+            isCompleted,
+          })
+        );
+      }
+      case "CHECK_TODO": {
+        return to(
+          updateToDo({
+            id: payload?.id,
+            todo,
+            isCompleted,
+          })
+        );
       }
 
-      case "delete": {
+      case "DELETE_TODO": {
         return to(deleteToDo({ id: payload?.id }));
       }
 

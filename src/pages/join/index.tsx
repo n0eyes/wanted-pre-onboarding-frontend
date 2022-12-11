@@ -45,7 +45,7 @@ function Join() {
         <Styled.Error>{errors.pwCheck}</Styled.Error>
 
         <Styled.ButtonWrapper>
-          <Styled.Button type="submit" variant="basic" disabled={isError}>
+          <Styled.Button type="submit" disabled={isError}>
             Join
           </Styled.Button>
         </Styled.ButtonWrapper>

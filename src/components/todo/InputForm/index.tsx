@@ -4,13 +4,13 @@ import { Styled } from "./style";
 import { dispatch } from "@/utils/actions/withAction";
 
 function InputForm() {
-  const onSubmit = () => dispatch({ type: "create" });
+  const submitHandler = () => dispatch({ type: "CREATE_TODO" });
 
   return (
     <Styled.Root>
-      <Styled.Form method="post" onSubmit={onSubmit}>
+      <Styled.Form method="post" onSubmit={submitHandler}>
         <Input name="todo" />
-        <Styled.Button variant="basic">추가</Styled.Button>
+        <Styled.Button>추가</Styled.Button>
       </Styled.Form>
     </Styled.Root>
   );

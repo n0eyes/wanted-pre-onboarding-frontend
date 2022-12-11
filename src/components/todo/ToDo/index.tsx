@@ -1,9 +1,9 @@
-import React from "react";
 import { UnPacked } from "@/types/common";
 import { GetToDoResponse } from "@/types/todo";
 import { Styled } from "./style";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { dispatch } from "@/utils/actions/withAction";
+import useTrigger from "@/utils/hooks/useTrigger";
 
 interface ToDoProps {
   data: UnPacked<GetToDoResponse>;
@@ -11,71 +11,79 @@ interface ToDoProps {
 
 interface ChildrenProps {
   data: ToDoProps["data"];
-  onEdit: VoidFunction;
 }
 
 function ToDo(props: ToDoProps) {
   const { data } = props;
-  const [editing, setEditing] = useState(false);
-  const editHandler = () => setEditing((prev) => !prev);
 
-  return editing ? (
-    <ToDo.Editing data={data} onEdit={editHandler} />
-  ) : (
-    <ToDo.View data={data} onEdit={editHandler} />
-  );
+  return <ToDo.View data={data} />;
 }
 
 export default ToDo;
 
 ToDo.View = function View(props: ChildrenProps) {
   const {
-    data: { id, todo },
-    onEdit,
-  } = props;
-  const deleteHandler = () => dispatch({ type: "delete", payload: { id } });
-
-  return (
-    <Styled.Root>
-      <Styled.Form method="delete">
-        <Styled.Label>
-          <Styled.CheckBox type="checkbox" />
-          <Styled.Content>{todo}</Styled.Content>
-        </Styled.Label>
-        <Styled.ButtonWrapper>
-          <Styled.Button variant="basic" onClick={onEdit}>
-            수정
-          </Styled.Button>
-          <Styled.Button variant="basic" onClick={deleteHandler}>
-            삭제
-          </Styled.Button>
-        </Styled.ButtonWrapper>
-      </Styled.Form>
-    </Styled.Root>
-  );
-};
-
-ToDo.Editing = function Editing(props: ChildrenProps) {
-  const {
-    data: { id, todo },
-    onEdit,
+    data: { id, todo, isCompleted },
   } = props;
 
-  const submitHandler = () => {
+  const [editing, setEditing] = useState(false);
+  const trigger = useTrigger();
+
+  const toggleEditing = () => setEditing((prev) => !prev);
+
+  const updateHandler = (e: FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+    const name = (e.target as HTMLInputElement).name;
+
+    if (name !== "checkbox") return;
+
+    dispatch({
+      type: "CHECK_TODO",
+      payload: { id },
+    });
+
+    trigger("put", formData);
+  };
+
+  const submitHandler = (e: FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.currentTarget);
+
     dispatch(
       {
-        type: "update",
+        type: "EDIT_TODO",
         payload: { id },
       },
-      onEdit
+      { callback: toggleEditing }
     );
+
+    trigger("put", formData);
+  };
+  const deleteHandler = () => {
+    dispatch({ type: "DELETE_TODO", payload: { id } });
+    trigger("delete");
   };
 
   return (
     <Styled.Root>
-      <Styled.Form method="put" onSubmit={submitHandler}>
-        <Styled.Input name="todo" defaultValue={todo} autoFocus />
-        <Styled.Button variant="basic">완료</Styled.Button>
+      <Styled.Form onChange={updateHandler} onSubmit={submitHandler}>
+        <Styled.CheckBox
+          name="checkbox"
+          type="checkbox"
+          defaultChecked={isCompleted}
+        />
+        <Styled.Input name="todo" defaultValue={todo} readOnly={!editing} />
+
+        <Styled.ButtonWrapper>
+          {editing && <Styled.Button type="submit">완료</Styled.Button>}
+          {!editing && (
+            <Styled.Button onClick={toggleEditing} type="button">
+              수정
+            </Styled.Button>
+          )}
+          <Styled.Button onClick={deleteHandler} type="button">
+            삭제
+          </Styled.Button>
+        </Styled.ButtonWrapper>
       </Styled.Form>
     </Styled.Root>
   );
