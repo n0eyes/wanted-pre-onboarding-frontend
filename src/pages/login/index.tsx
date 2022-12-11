@@ -3,8 +3,9 @@ import Input from "@/components/common/Input";
 import { Styled } from "./style";
 import { ActionFunctionArgs, Link, redirect } from "react-router-dom";
 import useAuthForm from "@/utils/hooks/useAuthForm";
-import { login, to } from "@/api/auth";
+import { login } from "@/api/auth";
 import { AuthResponse } from "@/types/auth";
+import { to } from "@/api";
 
 function Login() {
   const {

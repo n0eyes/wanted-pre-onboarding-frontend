@@ -16,3 +16,16 @@ export const PATH = {
   UPDATE_TODO: "/todos",
   DELETE_TODO: "/todos",
 };
+
+export async function to<T>(
+  promise: Promise<T>
+): Promise<[null, T] | [unknown, null]> {
+  try {
+    return [null, await promise];
+  } catch (error) {
+    if (axios.isAxiosError(error)) alert(error.response?.data.message);
+    else throw error;
+
+    return [error, null];
+  }
+}

@@ -2,10 +2,10 @@ import React from "react";
 import InputForm from "@/components/todo/InputForm";
 import ToDoList from "@/components/todo/ToDoList";
 import { Styled } from "./style";
-import { to } from "@/api/auth";
 import { getToDo } from "@/api/todo";
 import { GetToDoResponse } from "@/types/todo";
 import { useLoaderData } from "react-router-dom";
+import { to } from "@/api";
 
 function ToDo() {
   const toDoList = useLoaderData() as GetToDoResponse;

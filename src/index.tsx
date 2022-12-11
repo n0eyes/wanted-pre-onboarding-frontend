@@ -15,10 +15,11 @@ import Layout from "./components/Layout";
 import Auth from "./pages/auth";
 import { withAction } from "./utils/actions/withAction";
 import { toDoAction } from "./utils/actions";
+import Error from "./pages/error";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<Layout />}>
+    <Route path="/" element={<Layout />} errorElement={<Error />}>
       <Route element={<App />}>
         <Route
           index
