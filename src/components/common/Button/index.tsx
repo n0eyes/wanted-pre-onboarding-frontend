@@ -6,7 +6,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 function Button({ children, ...props }: PropsWithChildren<ButtonProps>) {
-  console.log(props.variant);
   return (
     <Styled.Button {...props} variant={props.variant ?? 'basic'}>
       {children}
