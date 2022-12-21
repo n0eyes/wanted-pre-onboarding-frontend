@@ -1,8 +1,8 @@
-import React from "react";
-import { Styled } from "./style";
+import React, { memo } from 'react';
+import { Styled } from './style';
 
 function Input({ ...props }) {
   return <Styled.Input {...props} />;
 }
 
-export default Input;
+export default memo(Input);
